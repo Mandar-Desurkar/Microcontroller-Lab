@@ -1,0 +1,75 @@
+	AREA PROG7, CODE, READONLY
+A    RN 1
+D    RN 2
+N    RN 3
+
+ENTRY
+     MOV A, #1
+     MOV D, #2
+     MOV N, #10
+     MOV R5, #0x40000000
+
+LOOP
+     MUL R6, A, D
+     MOV A, R6
+     STR A, [R5], #4
+     SUBS N, N, #1
+     BNE LOOP
+
+STOP B STOP
+
+     END
+
+/////////////////////// OR /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	AREA PROG7, CODE, READONLY
+
+    ; Register Names
+A	RN 1    ; Register for A
+D	RN 2    ; Register for D
+N	RN 3    ; Register for N
+
+ENTRY
+   ; Initialize values
+	MOV A, #1           ; A = 1
+	MOV D, #2           ; D = 2
+	MOV N, #10          ; N = 10
+	MOV R5, #0x40000000 ; Memory Address R5
+
+LOOP
+  ; Multiply A and D, store in R6
+	MUL R6, A, D
+	MOV A, R6  ; Update A with the result
+ ; Store A in memory and move to next address
+	STR A, [R5], #4
+
+; Decrement N
+	SUBS N, N, #1
+	BNE LOOP ; Repeat if N is not zero
+
+STOP B STOP
+
+    END
+
+/////////////////// OR /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+AREA PROG7, CODE, READONLY
+
+ENTRY
+	MOV r0, #1
+	MOV r1, #2
+	MOV r2, #10
+    MOV r5, #0x40000000
+
+LOOP
+    MUL r6, r0, r1
+    MOV r0, r6
+    STR r0, [r5], #4
+    SUBS r2, r2, #1
+    BNE LOOP
+
+STOP B STOP
+
+    END
