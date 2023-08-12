@@ -1,0 +1,17 @@
+	area sum_of_squares, code, readonly
+	entry
+	mov r0, #1
+	mov r1, #0	;sum
+again
+	bl sqr
+	add r1, r1, r2
+	add r0, r0, #1
+	cmp r0, #6
+	bne again
+go 	b go
+
+
+sqr	mul r2, r0, r0
+	bx lr				;can use <mov pc, lr>, but <bx rn> is preferred
+	
+	end
