@@ -1,0 +1,69 @@
+	AREA PROG10,CODE,READONLY
+
+NUMBER   RN 1
+NUMONES  RN 10
+NUMZEROES RN 11
+
+ENTRY
+    MOV R5, #0x40000000
+    LDR NUMBER,=0xA
+    MOV NUMONES, #0
+    MOV NUMZEROES, #0
+
+LOOP
+    LSRS NUMBER, #1
+    ADDCS NUMONES, #1
+    ADDCC NUMZEROES, #1
+    CMP NUMBER, #0
+    BNE LOOP
+
+    STR NUMONES, [R5]
+    STR NUMZEROES, [R5, #4]
+
+STOP B STOP
+
+	END
+
+
+///////////////////////////// OR /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	AREA PROG10,CODE,READONLY
+
+; Register Names
+NUMBER   RN 1      ; Register for NUMBER
+NUMONES  RN 10     ; Register for NUMONES
+NUMZEROES RN 11    ; Register for NUMZEROES
+
+ENTRY
+    ; Initialize memory address
+    MOV R5, #0x40000000
+
+    ; Load the value 0xA (10 in decimal) into NUMBER
+    LDR NUMBER,=0xA
+
+    ; Initialize counters
+    MOV NUMONES, #0
+    MOV NUMZEROES, #0
+
+LOOP
+    ; Shift NUMBER right by 1
+    LSRS NUMBER, #1
+
+    ; Conditionally increment counters based on carry flag (CS and CC)
+    ADDCS NUMONES, #1
+    ADDCC NUMZEROES, #1
+
+    ; Compare NUMBER with 0
+    CMP NUMBER, #0
+
+    ; If not equal (BNE), repeat the loop
+    BNE LOOP
+
+    ; Store the results in memory
+    STR NUMONES, [R5]
+    STR NUMZEROES, [R5, #4]
+
+STOP B STOP
+
+	END
