@@ -1,0 +1,15 @@
+area fact_n, code
+	entry
+  
+	mov r0, #3
+	mov r1, #1
+  
+next cmp r0, #0
+
+		BEQ stop 
+		MUL r1,r0,r1
+		SUB r0,r0,#1
+		B next
+stop B stop
+
+    end
