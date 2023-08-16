@@ -1,0 +1,27 @@
+#include<lpc214x.h>
+
+void function(){
+	PINSEL0=0x00000002;
+	PWMPR=0x2;
+	PWMPCR=0x00000200;
+	PWMMR1=0xC37F;
+	PWMMCR=0x00000002;
+	PWMTCR=0x00000009;
+
+}
+
+int main(void){
+
+int i;
+function();
+
+while(1){
+	for(i=0;i<10;i++){
+	
+	PWMMR1=0xfff+(0xff5*i);
+	PWMLER=0x02;
+	}
+
+}
+
+}
