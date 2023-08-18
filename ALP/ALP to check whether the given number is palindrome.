@@ -1,0 +1,47 @@
+AREA PROG20, CODE, READONLY
+ENTRY
+
+    ; Load the initial value
+    LDR R1, =12321
+    MOV R6, R1
+    MOV R2, #10
+    MOV R5, #0
+    MOV R10, #10
+
+LOOP
+    ; Call the DIV subroutine
+    BL DIV
+    
+    ; Calculate R5 = R10 * R5 + R4
+    MLA R5, R10, R5, R4
+    
+    ; Compare R3 with 0
+    CMP R3, #0
+    MOVNE R1, R3    ; If not equal, update R1
+    
+    BNE LOOP         ; Branch to LOOP if not equal
+
+    ; Compare R5 with the initial value
+    CMP R5, R6
+    MOVEQ R7, #1     ; If equal, set R7 to 1
+    MOVNE R7, #0     ; If not equal, set R7 to 0
+
+    ; Stop the program
+    STOP B STOP
+
+DIV
+    MOV R3, #0
+
+LOOP2
+    ; Subtract R2 from R1 and update R3
+    SUBS R1, R1, R2
+    ADDPL R3, R3, #1
+    BPL LOOP2        ; Branch to LOOP2 if positive or zero
+    
+    ; Add R2 to R1 and store in R4
+    ADDMI R4, R1, R2
+    
+    ; Return from DIV subroutine
+    BX LR
+
+END
