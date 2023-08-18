@@ -1,0 +1,50 @@
+	area npr, code
+	entry
+	
+n 	rn 0
+r	rn 1
+result rn 3
+facto rn 4 
+quo rn 5
+temp rn 6
+
+	mov n, #5
+	mov r, #2
+	mov temp, n
+;ASR temp, #2
+	bl fact
+	mov result, facto
+	sub n, temp, r
+	bl fact
+	
+	mov temp, facto
+	
+	mov n, r
+	bl fact
+	mul facto, temp, facto
+	
+	
+	bl divide
+	mov result, quo
+	
+stop b stop	
+fact 
+	mov facto, #1
+next1
+	cmp n, #0
+	mulgt facto, n, facto
+	subgt n, n, #1
+	bgt next1
+	bx lr
+
+divide
+	mov quo, #0
+next 
+	subs result, result, facto
+	addpl quo, quo, #1
+	bpl next
+	addmi result, result, facto
+	bx lr
+
+	end
+	
