@@ -1,0 +1,33 @@
+	area sum_digits, code
+	entry
+n 	rn 1
+sum rn 2
+quo rn 3
+digit rn 4
+divisor rn 5
+
+	ldr n, =12345
+	mov sum ,#0
+	mov divisor, #10
+	
+get_next_digit	
+	bl get_last_digit
+	add sum ,sum, digit
+	cmp quo, #0
+	movne n, quo
+	bne get_next_digit
+
+stop b stop
+
+get_last_digit
+	mov quo, #0
+	mov digit, #0
+	
+sub_again
+	subs n, n, divisor
+	addpl quo, quo, #1
+	bpl sub_again
+	addmi digit, n, divisor
+	bx lr
+	
+	end
