@@ -1,0 +1,26 @@
+//Credits JOSEPH BINOY M //
+
+	area fibonacci, code
+entry
+	mov r0, #0	;a
+	mov r1, #1	;b
+	mov r2, #8	;no.of terms
+	mov r3, #0	;c
+	ldr r4, =fib ;pointer
+	
+	strb r0, [r4], #1	;print a
+	strb r1, [r4], #1	;print b
+	
+loop
+	add r3, r1, r0 ;c=a+b
+	strb r3, [r4], #1	;print c
+	mov r0, r1	;a<-b
+	mov r1, r3	;b<-c
+	subs r2, r2, #1 ;decrement counter
+	bne loop
+	
+stop b stop
+	
+	area mydata, data, readwrite
+fib space 10
+	end
